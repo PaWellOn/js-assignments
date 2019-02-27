@@ -237,7 +237,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  throw new Error('Not implemented');
+  return Object.prototype.toString.call(value) === "[object String]"
 }
 
 
@@ -266,7 +266,34 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  throw new Error('Not implemented');
+  let power=value[0];
+    let mast=value[1];
+    if(value.length>2){
+        mast=value[2];
+        power=value.slice(0,2);
+    }
+    let a=0;
+    if(power==='A') a=0;
+        else if(power==='J') a=10;
+        else if(power==='Q') a=11;
+        else if(power==='K') a=12;
+        else a=Number(power)-1;
+
+        switch(mast){
+          case '♣': 
+              a+=0;
+              break;
+          case '♦':
+              a+=13;
+              break;
+          case '♥':
+              a+=26;
+              break;
+          case '♠':
+              a+=39;
+              break;
+      }
+      return a;
 }
 
 module.exports = {
