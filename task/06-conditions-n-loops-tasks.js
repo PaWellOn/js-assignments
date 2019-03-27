@@ -202,10 +202,10 @@ function findFirstSingleChar(str) {
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
   if (a > b) b = [a, a = b][0];
-    if(isStartIncluded&&isEndIncluded) return '[' + a + ', ' + b + ']';
-    else if(isStartIncluded&&!isEndIncluded) return '[' + a + ', ' + b + ')';
-    else if(!isStartIncluded&&isEndIncluded) return '(' + a + ', ' + b + ']';
-    else return '(' + a + ', ' + b + ')';
+  if(isStartIncluded&&isEndIncluded) return '[' + a + ', ' + b + ']';
+  else if(isStartIncluded&&!isEndIncluded) return '[' + a + ', ' + b + ')';
+  else if(!isStartIncluded&&isEndIncluded) return '(' + a + ', ' + b + ']';
+  else return '(' + a + ', ' + b + ')';
 }
 
 
@@ -222,10 +222,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-  return str
-            .split('')
-            .reverse()
-            .join('');
+  return str.split('').reverse().join('');
 }
 
 
@@ -242,11 +239,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-  return parseInt(num
-    .toString()
-    .split('')
-    .reverse()
-    .join(''));
+  return parseInt(num.toString().split('').reverse().join(''));
 }
 
 
@@ -294,8 +287,8 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-  let sum = num.toString().split('').map(x => parseInt(x)).reduce((x, y) => x + y);
-    return sum.toString().length > 1 ? getDigitalRoot(sum) : sum;
+  const sum = num.toString().split('').map(x => parseInt(x)).reduce((x, y) => x + y);
+  return sum.toString().length > 1 ? getDigitalRoot(sum) : sum;
 }
 
 
@@ -321,29 +314,22 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true
  */
 function isBracketsBalanced(str) {
-  let i,
-    l=str.length,
-    char,
-    last,
-    stack=[],
-    index,
-    bracketsOpen=["(","{","[","<"],
-    bracketsClose=[")","}","]",">"];
-    for(i=0; i<l; i++){
-        char=str[i];
+  const opening = ['[', '{', '(', '<'],
+    closing = [']', '}', ')', '>'], stack = [];
 
-        if(bracketsOpen.indexOf(char)!=-1){
-            stack.push(last=char);
-        }else if((index=bracketsClose.indexOf(char))!=-1){
-            if(last && last==bracketsOpen[index]){
-                stack.pop();
-                last=stack[stack.length-1];
-            }else{
-                return false;
-            }
-        }
+  for (let i = 0; i < str.length; i++) {
+    if (closing.includes(str[i])) {
+      const matchingOpening = opening[closing.indexOf(str[i])];
+
+      if (!stack.length || (stack.pop() !== matchingOpening)) {
+        return false;
+      }
+    } else {
+      stack.push(str[i]);
     }
-    return !last;
+  }
+
+  return !stack.length;
 }
 
 
@@ -379,24 +365,24 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-  let startDateSec = startDate.getTime()/1000;
-    let endDateSec = endDate.getTime()/1000;
-    let dif = endDateSec - startDateSec;
-    const roundDif = dif => {
-        if(dif>Math.floor(dif)+0.5) return Math.round(dif);
-        else return Math.floor(dif);
-    }
-    if(dif<=45) return 'a few seconds ago';
-    else if(dif<=90) return 'a minute ago';
-    else if(dif<=45*60) return `${roundDif(dif/60)} minutes ago`;
-    else if(dif<=90*60) return 'an hour ago';
-    else if(dif<=22*3600) return `${roundDif(dif/3600)} hours ago`;
-    else if(dif<=3600*36) return 'a day ago';
-    else if(dif<=3600*24*25) return `${roundDif(dif/3600/24)} days ago`;
-    else if(dif<=3600*24*45) return 'a month ago';
-    else if(dif<=3600*24*345) return `${roundDif(dif/3600/24/30)} months ago`;
-    else if(dif<=3600*24*545) return 'a year ago';
-    else if(dif>=3600*24*546) return `${roundDif(dif/3600/24/365)} years ago`;
+  const startDateSec = startDate.getTime()/1000;
+  const endDateSec = endDate.getTime()/1000;
+  const dif = endDateSec - startDateSec;
+  const roundDif = dif => {
+    if(dif>Math.floor(dif)+0.5) return Math.round(dif);
+    else return Math.floor(dif);
+  };
+  if(dif<=45) return 'a few seconds ago';
+  else if(dif<=90) return 'a minute ago';
+  else if(dif<=45*60) return `${roundDif(dif/60)} minutes ago`;
+  else if(dif<=90*60) return 'an hour ago';
+  else if(dif<=22*3600) return `${roundDif(dif/3600)} hours ago`;
+  else if(dif<=3600*36) return 'a day ago';
+  else if(dif<=3600*24*25) return `${roundDif(dif/3600/24)} days ago`;
+  else if(dif<=3600*24*45) return 'a month ago';
+  else if(dif<=3600*24*345) return `${roundDif(dif/3600/24/30)} months ago`;
+  else if(dif<=3600*24*545) return 'a year ago';
+  else if(dif>=3600*24*546) return `${roundDif(dif/3600/24/365)} years ago`;
 }
 
 
@@ -471,7 +457,7 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-  let result = [];
+  const result = [];
 
   for (let i = 0; i < m1.length; i++) {
     result.push([]);
@@ -518,43 +504,43 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-  let win = [[0, 1, 2],   
-  [3, 4, 5],
-  [6, 7, 8], 
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]];
+  const win = [[0, 1, 2],   
+    [3, 4, 5],
+    [6, 7, 8], 
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]];
    
   for (let i = 0; i < 3 ; i++){
-  if(position[i].length < 3){
-    for(let j = 0; j < 3 - position[i].length; j++)
-        position[i].push(undefined);
-  };
-};
-  let newBoard = [].concat.apply([], position);
+    if(position[i].length < 3){
+      for(let j = 0; j < 3 - position[i].length; j++)
+      {position[i].push(undefined);}
+    }
+  }
+  const newBoard = [].concat.apply([], position);
 
   const isCWin = function(position, char) {
     for (let i = 0; i < win.length; i++) { 
-        if (   position[win[i][0]] != undefined && position[win[i][0]] === char 
+      if (   position[win[i][0]] != undefined && position[win[i][0]] === char 
             && position[win[i][1]] != undefined && position[win[i][1]] === char 
             && position[win[i][2]] != undefined && position[win[i][2]] === char) { 
-            return true; 
-        } 
+        return true; 
+      } 
     } 
     return false; 
-};
+  };
 
-if (isCWin(newBoard, "X")) { 
-    return "X"; 
-}
+  if (isCWin(newBoard, 'X')) { 
+    return 'X'; 
+  }
 
-if (isCWin(newBoard, "0")) { 
-    return "0"; 
-}
+  if (isCWin(newBoard, '0')) { 
+    return '0'; 
+  }
 
-return undefined;
+  return undefined;
 }
 
 module.exports = {

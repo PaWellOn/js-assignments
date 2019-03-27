@@ -1,4 +1,4 @@
-
+﻿
 /** ******************************************************************************************
  *                                                                                          *
  * Plese read the following tutorial before implementing tasks:                             *
@@ -112,7 +112,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  return Math.acos(((x1*x2)+(y1*y2))/Math.sqrt(Math.pow(x1,2)+Math.pow(y1,2))*Math.sqrt(Math.pow(x2,2)+Math.pow(y2,2)));
+  return Math.acos((x1 * x2 + y1 * y2) / Math.abs((y1 - x1) * (y2 - x2)));
 }
 
 /**
@@ -161,7 +161,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a, b, c) {
-  return Math.sqrt(Math.pow(a,2)+Math.pow(b,2)+Math.pow(c,2));
+  return Math.sqrt(Math.pow(a, 2)+Math.pow(b, 2)+Math.pow(c, 2));
 }
 
 /**
@@ -182,7 +182,7 @@ function getParallelipidedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  return Math.round(num/Math.pow(10,pow))*Math.pow(10,pow);
+  return Math.round(num/Math.pow(10, pow))*Math.pow(10, pow);
 }
 
 /**
@@ -225,17 +225,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  switch(typeof value){
-    case 'number':
-        return value;
-    case 'string':
-        if (isNaN(parseFloat(value))) return def;
-        else return parseFloat(value);
-    case 'object':
-        return (value === null)? def:value.valueOf();
-    case 'undefined':
-        return def;
-}
+  return isNaN(Number(value)) ? def : Number(value);
 }
 
 module.exports = {

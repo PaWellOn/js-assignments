@@ -22,7 +22,7 @@
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
 function findElement(arr, value) {
-return arr.indexOf(value);
+  return arr.indexOf(value);
 }
 
 /**
@@ -37,7 +37,7 @@ return arr.indexOf(value);
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-return new Array(len).fill(0).map((_, i) => 2*i+1);
+  return new Array(len).fill(0).map((_, i) => 2*i+1);
 }
 
 
@@ -86,7 +86,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-  return arr.filter(elem => typeof elem == "string");
+  return arr.filter(elem => typeof elem === 'string');
 }
 
 /**
@@ -118,7 +118,7 @@ function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 function getUpperCaseStrings(arr) {
-  return arr.map(function(elem){ return elem.toUpperCase()});
+  return arr.map(function(elem){ return elem.toUpperCase();});
 }
 
 
@@ -133,7 +133,7 @@ function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-  return arr.map(function(elem){ return elem.length});
+  return arr.map(function(elem){ return elem.length;});
 }
 
 /**
@@ -162,7 +162,7 @@ function insertItem(arr, item, index) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'a', 'b', 'c' ]
  */
 function getHead(arr, n) {
- arr.splice(n); return arr;
+  arr.splice(n); return arr;
 }
 
 
@@ -177,7 +177,7 @@ function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 function getTail(arr, n) {
-  arr.splice(0,arr.length-n); return arr;
+  arr.splice(0, arr.length-n); return arr;
 }
 
 
@@ -236,8 +236,8 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-  var new_array = [];
-  arr.reduce(function(a,b,i) { return new_array[i] = a+b; },0); return new_array;
+  let sum = 0;
+  return arr.map(x => sum += x);
 }
 
 /**
@@ -252,7 +252,7 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-  return arr.filter(function(elem, i, arr){ return i%2!=0; });
+  return arr.filter(function(elem, i, arr){ return i%2!==0; });
 }
 
 
@@ -271,7 +271,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-  return [].concat.apply([], arr.map((val, idx) => new Array(idx + 1).fill(val)));
+  return [].concat.apply([], arr.map((val, idx) => Array(idx + 1).fill(val)));
 }
 
 
@@ -289,7 +289,7 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-  return arr.sort((a,b)=>a-b).reverse().slice(0,3); 
+  return arr.sort((a, b)=>a-b).reverse().slice(0, 3); 
 }
 
 
@@ -307,7 +307,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  return arr.filter(elem => typeof elem == 'number' && elem > 0).length;
+  return arr.filter(elem => typeof elem === 'number' && elem > 0).length;
 }
 
 /**
@@ -324,8 +324,8 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-  let array = ['zero','one','two','three','four','five','six','seven','eight','nine'];
- return arr.sort((a,b) => array.indexOf(a) > array.indexOf(b) ? 1 : -1);
+  const array = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  return arr.sort((a, b) => array.indexOf(a) > array.indexOf(b) ? 1 : -1);
 }
 
 /**
@@ -423,7 +423,7 @@ function sortCitiesArray(arr) {
   return arr.sort((a, b) => {
     if ((a.country > b.country) || a.country === b.country && a.city > b.city) return 1;
     else return -1;
- });
+  });
 }
 
 /**
@@ -514,9 +514,9 @@ function group(array, keySelector, valueSelector) {
   return new Map(array
     .map(keySelector)
     .map(el => [el, array
-    .filter(keySelector)
-    .filter(elem => [elem].map(keySelector)[0] === el)
-    .map(valueSelector)]));
+      .filter(keySelector)
+      .filter(elem => [elem].map(keySelector)[0] === el)
+      .map(valueSelector)]));
 }
 
 
@@ -574,13 +574,13 @@ function getElementByIndexes(arr, indexes) {
  *
  */
 function swapHeadAndTail(arr) {
-  let middle = Math.floor(arr.length / 2);
+  const middle = Math.floor(arr.length / 2);
 
-   if(arr.length % 2 && arr.length > 1){
-   arr.push(arr[middle]);
-   arr.splice(middle, 1);
-   }
-   return [].concat.apply(arr,arr.splice(0, middle));
+  if(arr.length % 2 && arr.length > 1){
+    arr.push(arr[middle]);
+    arr.splice(middle, 1);
+  }
+  return [].concat.apply(arr, arr.splice(0, middle));
 }
 
 module.exports = {

@@ -81,7 +81,7 @@ function  extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-  return value.substr(0,1);
+  return value.substr(0, 1);
 }
 
 /**
@@ -127,7 +127,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value)  {
-  return str.replace(value, "");
+  return str.replace(value, '');
 }
 
 /**
@@ -199,7 +199,8 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  return "┌"+"─".repeat(width-2)+"┐\n"+("│"+" ".repeat(width-2)+"│\n").repeat(height-2)+"└"+"─".repeat(width-2)+"┘\n";
+  return '┌'+'─'.repeat(width-2)+'┐\n'+('│'+' '.repeat(width-2)+'│\n')
+    .repeat(height-2)+'└'+'─'.repeat(width-2)+'┘\n';
 }
 
 
@@ -222,8 +223,8 @@ function getRectangleString(width, height) {
 function encodeToRot13(str) {
   return str.replace(/([A-M])|([N-Z])/gi, function(match, p1, p2) {
     switch(match) {
-      case p1:return String.fromCharCode(match.charCodeAt(0) + 13);
-      case p2:return String.fromCharCode(match.charCodeAt(0) - 13);       
+    case p1:return String.fromCharCode(match.charCodeAt(0) + 13);
+    case p2:return String.fromCharCode(match.charCodeAt(0) - 13);       
     }
   });
 }
@@ -242,7 +243,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return Object.prototype.toString.call(value) === "[object String]"
+  return Object.prototype.toString.call(value) === '[object String]';
 }
 
 
@@ -271,34 +272,9 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  let power=value[0];
-    let mast=value[1];
-    if(value.length>2){
-        mast=value[2];
-        power=value.slice(0,2);
-    }
-    let a=0;
-    if(power==='A') a=0;
-        else if(power==='J') a=10;
-        else if(power==='Q') a=11;
-        else if(power==='K') a=12;
-        else a=Number(power)-1;
-
-        switch(mast){
-          case '♣': 
-              a+=0;
-              break;
-          case '♦':
-              a+=13;
-              break;
-          case '♥':
-              a+=26;
-              break;
-          case '♠':
-              a+=39;
-              break;
-      }
-      return a;
+  const col = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'],
+  row = ['♣','♦','♥','♠'], type=value.slice(-1), numb=value.slice(0, -1);
+  return row.findIndex(x => x === type) * 13 + col.findIndex(x => x === numb);
 }
 
 module.exports = {
