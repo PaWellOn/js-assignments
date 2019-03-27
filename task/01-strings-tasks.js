@@ -220,7 +220,12 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  throw new Error('Not implemented');
+  return str.replace(/([A-M])|([N-Z])/gi, function(match, p1, p2) {
+    switch(match) {
+      case p1:return String.fromCharCode(match.charCodeAt(0) + 13);
+      case p2:return String.fromCharCode(match.charCodeAt(0) - 13);       
+    }
+  });
 }
 
 /**

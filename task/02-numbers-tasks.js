@@ -53,7 +53,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  throw new Error('Not implemented');
+  return value1/2 + value2/2;
 }
 
 /**
@@ -225,7 +225,17 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  throw new Error('Not implemented');
+  switch(typeof value){
+    case 'number':
+        return value;
+    case 'string':
+        if (isNaN(parseFloat(value))) return def;
+        else return parseFloat(value);
+    case 'object':
+        return (value === null)? def:value.valueOf();
+    case 'undefined':
+        return def;
+}
 }
 
 module.exports = {
